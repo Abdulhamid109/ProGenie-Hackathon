@@ -1,10 +1,9 @@
-import CustomNavbar from "@/components/CustomNavbar";
 import Link from "next/link";
 
 export default function AboutUs() {
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-gray-100">      
-        <CustomNavbar/>
+        
       {/* Main Content */}
       <main className="flex-1 p-6 w-full">
         <div className="max-w-7xl mx-auto">
