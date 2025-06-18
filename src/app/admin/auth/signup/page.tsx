@@ -23,7 +23,7 @@ const Signup = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [disable, setDisable] = useState<boolean>(false);
 
-    const addSignupData = async (e: any) => {
+    const addSignupData = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setDisable(true);
