@@ -17,8 +17,7 @@ interface Job {
 }
 
 const JobdescriptionPage = () => {
-  const searchParams = useSearchParams();
-  const jobid = searchParams.get('jobid');
+  
   const [data,setdata] = useState<Job>({
     jobtitle:"",
     jobrole:"",
@@ -47,11 +46,15 @@ const JobdescriptionPage = () => {
       console.log(error);
         }
   }
-
-  useEffect(()=>{
+  const searchParams = useSearchParams();
+  const jobid = searchParams.get('jobid');
+  useEffect(() => {
+  if (jobid) {
     fetchjobdetails();
-  },[])
+  }
+}, [jobid]);
   return (
+    
     <div>
       <div className='bg-zinc-700 p-3 rounded-md bg-gradient-to-l from-black/[0.96] mb-2'>
         <h1 className='font-bold text-2xl text-shadow-2xs p-2'>{data.jobtitle}</h1>
