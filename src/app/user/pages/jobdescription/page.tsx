@@ -29,9 +29,7 @@ const JobdescriptionPage = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  const searchParams = useSearchParams();
-  const jobid = searchParams?.get("jobid");
-
+const jobid = useSearchParams().get('jobid');
   const fetchJobDetails = async () => {
     try {
       const response = await axios.get(`/api/admin/job?jobid=${jobid}`);

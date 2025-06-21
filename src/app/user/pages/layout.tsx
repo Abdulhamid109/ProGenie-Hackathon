@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { Suspense } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -79,7 +80,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </nav>
           <div className="p-2 flex-1">
-            {children}
+            <Suspense>
+              {children}
+            </Suspense>
           </div>
         </main>
       </SidebarProvider>
