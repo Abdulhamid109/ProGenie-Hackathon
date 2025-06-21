@@ -1,8 +1,8 @@
 import { connect } from "@/DBconfig/dbconfig";
-import { getDatafromToken } from "@/helpers/getDataFromToken";
 import ProfileData from "@/models/profilemodal";
 import { NextRequest, NextResponse } from "next/server";
 import ImageKit from "imagekit";
+import { getUserTokenData } from "@/helpers/getUserTokenData";
 
 
 connect();
@@ -51,8 +51,8 @@ export async function POST(request: NextRequest) {
             folder: '/resumepdfs', // Optional: specify a folder in ImageKit
         });
 
-        const userID = await getDatafromToken(request);
-
+        const userID = await getUserTokenData(request);
+        console.log('userID: '+userID)
         
         // for Email Verification will do it later
         const newProfileData = new ProfileData({
@@ -82,7 +82,10 @@ export async function POST(request: NextRequest) {
         })
 
     } catch (error) {
-        console.log("Error in POST request:", error);
-        return new Response("Internal Server Error", { status: 500 });
+        // console.log("Error in POST request:", error);
+        return NextResponse.json(
+            {error:"internal server error "+error},
+            {status:500}
+        );
     }
 }

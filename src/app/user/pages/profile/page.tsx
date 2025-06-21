@@ -144,11 +144,18 @@ const ProfilePage = () => {
           placeholder='Enter your City'
           className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
         />
-        <input
+          <input
+            type="text"
+            value={data.ColleageName}
+            onChange={(e) => setData({ ...data, ColleageName: e.target.value })}
+            placeholder='Enter your college name'
+            className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
+          />
+                  <input
           type="text"
           value={data.CourseName}
           onChange={(e) => setData({ ...data, CourseName: e.target.value })}
-          placeholder='Enter your College Name'
+          placeholder='Enter your Course Name'
           className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
         />
         <input
@@ -156,13 +163,6 @@ const ProfilePage = () => {
           value={data.Spealization}
           onChange={(e) => setData({ ...data, Spealization: e.target.value })}
           placeholder='Enter your Spealization'
-          className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
-        />
-        <input
-          type="text"
-          value={data.ColleageName}
-          onChange={(e) => setData({ ...data, ColleageName: e.target.value })}
-          placeholder='Enter your college name'
           className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
         />
         <select

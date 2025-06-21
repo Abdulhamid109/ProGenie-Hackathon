@@ -34,7 +34,7 @@ const JobPostPage = () => {
         alljobfetch();
     },[])
   return (
-    <div className="p-8 space-y-4">
+    <div className="p-3 space-y-4">
       <div className="text-2xl font-bold">Welcome Mr ... Your Job Postings</div>
       {data.length === 0 ? (
         <div>No jobs found.</div>
