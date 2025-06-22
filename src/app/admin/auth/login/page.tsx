@@ -3,6 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 
 interface AdminLoginData {
     email: string;
@@ -29,7 +30,12 @@ const LoginPage = () => {
             const response = await axios.post("/api/admin/login", data);
             if (response.status === 200) {
                 setMessage("Successfully Logged in...");
-                router.push('/admin/pages/homepage')
+                router.push('/admin/pages/homepage');
+                toast.success('Successfully logged in');
+            }else if(response.status===400){
+                setMessage('Invalid Credentials');
+            }else if(response.status===404){
+                setMessage('Account does not exists!!');
             }
         } catch (error) {
             console.log("Failed to Log in", error);
@@ -73,7 +79,7 @@ const LoginPage = () => {
                 <div className='mt-6 text-zinc-300 font-medium'>
                     Don&apos;t have an account? <Link className='text-blue-400 hover:text-blue-300 transition-colors duration-200' href='/admin/auth/signup'>Sign Up</Link>
                 </div>
-                <Link className='text-sm flex justify-end items-end w-full opacity-25 hover:font-semibold' href={'/admin/auth/login'}>Admin</Link>
+                <Link className='text-sm flex justify-end items-end w-full opacity-25 hover:font-semibold' href={'/user/auth/login'}>Customer</Link>
             </div>
         </div>
     )

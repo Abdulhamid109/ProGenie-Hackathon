@@ -3,6 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 
 interface LoginData {
     email: string;
@@ -29,7 +30,12 @@ const LoginPage = () => {
             const response = await axios.post("/api/user/login", data);
             if (response.status === 200) {
                 setMessage("Successfully Logged in...");
-                router.push('/user/pages/homepage')
+                router.push('/user/pages/homepage');
+                toast.success('Successfully logged in...');
+            }else if(response.status===400){
+                setMessage('Invalid Credentials');
+            }else if(response.status===404){
+                setMessage('Account does not exists');
             }
         } catch (error) {
             console.log("Failed to Log in", error);
