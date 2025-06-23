@@ -28,10 +28,12 @@ const AdminHomePage = () => {
                     <h3 className='text-lg font-semibold'>Manage Jobs</h3>
                     <p className='mt-2'>delete job postings.</p>
                 </div>
+                <Link href={'/admin/pages/jobpostpage'}>
                 <div className=' p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-br from-purple-500 to-purple-700 text-white hover:from-purple-600 hover:to-purple-800 cursor-pointer'>
                     <h3 className='text-lg font-semibold'>View Applications</h3>
                     <p className='mt-2'>Review applications submitted by candidates.</p>
                 </div>
+                </Link>
                 <div className=' p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-br from-pink-500 to-pink-700 text-white hover:from-pink-600 hover:to-pink-800 cursor-pointer'>
                     <h3 className='text-lg font-semibold'>User Management</h3>
                     <p className='mt-2'>Manage user accounts and permissions.</p>

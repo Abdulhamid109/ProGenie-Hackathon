@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -33,11 +32,12 @@ const JobdescriptionPage = () => {
 const {id} = useParams();
   const fetchJobDetails = async () => {
     try {
-      const response = await axios.get(`/api/user/alljobs/${id}`);
+      const response = await axios.get(`/api/admin/alljobs/${id}`);
       if (response.status === 200) {
-        setData(response.data.job);
-        console.log(response.data.job);
-      } else {
+        setData(response.data.myjob);
+        console.log(response.data.myjob);
+      } else if(response.status===404) {
+        console.log(response.statusText)
         console.log("Something went wrong!!!!");
       }
     } catch (error) {
@@ -46,6 +46,10 @@ const {id} = useParams();
       setLoading(false);
     }
   };
+
+  useEffect(()=>{
+    console.log(id);
+  },[id])
 
   useEffect(() => {
     if (id) {
@@ -60,6 +64,7 @@ const {id} = useParams();
   }
 
   if (!id) {
+    console.log('THE ID  : ',id)
     return <div>Job ID not provided</div>;
   }
 
@@ -84,9 +89,7 @@ const {id} = useParams();
         <div className="font-bold text-2xl text-shadow-2xs p-2">About Company</div>
         <div className="font-light text-lg tracking-tight p-2">{data.AboutCompany}</div>
       </div>
-      <div className="flex m-2 justify-center items-center">
-        <Button>Apply Now</Button>
-      </div>
+      
     </div>
 
   );

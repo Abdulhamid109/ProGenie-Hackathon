@@ -46,7 +46,7 @@ const items = [
   },
 ]
 
-export function AppSidebar() {
+export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent>

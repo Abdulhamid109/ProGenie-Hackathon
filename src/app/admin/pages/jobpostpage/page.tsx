@@ -47,7 +47,7 @@ const JobPostPage = () => {
             company={job.AboutCompany}
             location={job.jobLocation}
             description={job.jobdescription}
-            href={`/admin/pages/jobdescriptionpage?jobid=${job._id}`}
+            href={`/admin/pages/jobdescriptionpage/${job._id}`}
           />
         ))
       )}
