@@ -53,7 +53,7 @@ npm run dev
 yarn dev
 ```
 
-Visit `http://localhost:3000` in your browser.
+Visit `https://progenie.vercel.app` in your browser.
 
 ---
 
@@ -68,7 +68,7 @@ Visit `http://localhost:3000` in your browser.
 
 ## 🚀 Deployment
 
-ProGenie can be deployed with [Vercel](https://vercel.com). Just push your code to GitHub and connect the repo to Vercel.
+ProGenie is be deployed with [Vercel](https://vercel.com) at [ProGenie](https://progenie.vercel.com)
 
 More deployment details: [Next.js Deployment Docs](https://nextjs.org/docs/app/building-your-application/deploying)
 
