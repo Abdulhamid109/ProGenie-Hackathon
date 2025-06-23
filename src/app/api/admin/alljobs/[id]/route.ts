@@ -1,24 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
-import JobModal from "@/models/jobModal";
+import JobModel from "@/models/jobModal";
 import { connect } from "@/DBconfig/dbconfig";
 
-connect();
-
-interface RouteParams {
-  params: {
-    id: string;
-  };
-}
-export async function GET(request: NextRequest,{ params }: RouteParams ) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
+    await connect();
     const { id } = params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
     }
 
-    const job = await JobModal.findById(id);
+    const job = await JobModel.findById(id);
 
     if (!job) {
       return NextResponse.json({ message: "Job not found" }, { status: 404 });
@@ -26,6 +23,7 @@ export async function GET(request: NextRequest,{ params }: RouteParams ) {
 
     return NextResponse.json({ success: true, myjob: job }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("Error fetching job:", error);
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
