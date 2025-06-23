@@ -1,5 +1,4 @@
 "use client"
-import { AppSidebar } from "@/components/Navbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Dialog,
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button";import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import AppSidebar from "@/components/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
