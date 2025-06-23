@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ProGenie
 
-## Getting Started
+**ProGenie** is a smart job-matching platform built using **Next.js**, designed to streamline the recruitment process for both job seekers and recruiters. It features a **user panel**, an **admin dashboard**, and a recruiter system powered by **document similarity and intelligent shortlisting algorithms**.
 
-First, run the development server:
+---
+
+## ⚙️ Features
+
+* 🧑‍💼 **User Panel**:
+  Users can create profiles, upload resumes, and apply for jobs.
+
+* 🛠️ **Admin Panel**:
+  Admins manage job postings, users, and oversee system operations.
+
+* 🤖 **Intelligent Matching**:
+  When a user applies for a job, their resume is evaluated using a **document similarity algorithm** (e.g., cosine similarity or embeddings). Candidates are ranked based on a **relevance threshold**.
+
+* 🎯 **Candidate Shortlisting**:
+  Only candidates who meet or exceed the threshold score are **shortlisted automatically**.
+
+* 🔔 **Recruiter Notifications**:
+  Recruiters receive real-time notifications of shortlisted candidates.
+  They can review profiles and choose whether to send **interview/test links** to selected applicants.
+
+---
+
+## 🧪 Tech Stack
+
+* **Frontend**: Next.js 14, TypeScript, TailwindCSS
+* **Backend**: Node.js, Next.js API Routes
+* **Database**: MongoDB or PostgreSQL
+* **Authentication**: NextAuth / Firebase Auth
+* **Document Similarity**: Python microservice (e.g., using SpaCy/BERT or cosine similarity)
+* **Deployment**: Vercel
+
+---
+
+## 🛠 Getting Started Locally
+
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 Document Similarity & Ranking Logic
 
-## Learn More
+1. When a user clicks **Apply**, their resume is matched against the job description.
+2. A **similarity score** is generated using NLP-based matching.
+3. If the score ≥ **defined threshold** (e.g., 80%), the candidate is **shortlisted**.
+4. The shortlisted candidate's profile is sent to the **recruiter's dashboard** for further review.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ProGenie can be deployed with [Vercel](https://vercel.com). Just push your code to GitHub and connect the repo to Vercel.
 
-## Deploy on Vercel
+More deployment details: [Next.js Deployment Docs](https://nextjs.org/docs/app/building-your-application/deploying)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📚 Learn More
+
+* [Next.js Documentation](https://nextjs.org/docs)
+* [Next.js Learn Course](https://nextjs.org/learn)
+* [Vercel](https://vercel.com)
+* [Document Similarity Techniques (Medium)](https://medium.com/search?q=document%20similarity)
+
+---
+
+## 🤝 Contributions
+
+Have ideas or improvements? PRs and issues are welcome!
+Let’s make ProGenie the future of smart hiring.
+
