@@ -5,9 +5,12 @@ import { connect } from "@/DBconfig/dbconfig";
 
 connect();
 
-export async function GET(request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+interface RouteParams {
+  params: {
+    id: string;
+  };
+}
+export async function GET(request: NextRequest,{ params }: RouteParams ) {
   try {
     const { id } = params;
 
