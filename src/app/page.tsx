@@ -78,7 +78,7 @@ export default function GetStarted() {
             </Link>
             </div>
             <div className="bottom-0 flex justify-center items-center font-semibold bg-black">
-                All rights reserved by Abdulhamid ,Copyright @{Date.now().toString()}
+                All rights reserved by Code Smashers ,Copyright @{Date.now().toString()}
             </div>
         </div>
     );
