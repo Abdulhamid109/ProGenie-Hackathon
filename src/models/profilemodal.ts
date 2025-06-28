@@ -24,6 +24,10 @@ const profileSchema = new mongoose.Schema({
         type:String,
         description:"GPA(0-4),CGPA(0-10),Percentage(0-100)",
     },
+    phoneno:{
+        type:String,
+        unique:true
+    },
     Score:{
         type:String,
         description:"GPA(0-4),CGPA(0-10),Percentage(0-100)",

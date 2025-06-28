@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
         const StartYear = formData.get('StartYear');
         const EndYear = formData.get('EndYear');
         const Type = formData.get('Type');
+        const phoneno = formData.get('phoneno');
 
         if (!file || !filename) {
             return NextResponse.json({ error: 'File and name are required' }, { status: 400 });
@@ -53,6 +54,9 @@ export async function POST(request: NextRequest) {
 
         const userID = await getUserTokenData(request);
         console.log('userID: '+userID)
+
+        // delete the previous all records
+        await ProfileData.deleteMany({phoneno});
         
         // for Email Verification will do it later
         const newProfileData = new ProfileData({
@@ -69,6 +73,7 @@ export async function POST(request: NextRequest) {
             EndYear,
             Type,
             userID,
+            phoneno,
             resumelink: response.url,
         });
         console.log("New Profile Data:", newProfileData);

@@ -17,6 +17,7 @@ interface ProfileData {
   StartYear: string,
   EndYear: string,
   Type: string,
+  phoneno: string
   // userID,
   // resumelink:response.url,
 }
@@ -34,10 +35,14 @@ const ProfilePage = () => {
     StartYear: "",
     EndYear: "",
     Type: "",
+    phoneno: "",
   });
 
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
+  // const [resumetext,setresumetext] = useState<string>('');
+  // const [summarizeresumetext,setsummarizeresumetext] = useState<string>('');
+  const [cleantext, setcleantext] = useState<string>('');
   const [filename, setFilename] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -85,14 +90,14 @@ const ProfilePage = () => {
       formData.append('StartYear', data.StartYear);
       formData.append('EndYear', data.EndYear);
       formData.append('Type', data.Type);
+      formData.append('phoneno', data.phoneno);
       console.log(formData)
       const response = await axios.post('/api/user/profilepage', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       if (response.status === 200) {
-        setMessage('Profile created successfully!');
-        router.push('/user/pages/homepage');
+        fetchresumelink()
       }
     } catch (error) {
       console.error('Failed to create profile:', error);
@@ -103,7 +108,82 @@ const ProfilePage = () => {
     }
   };
 
-  
+  // backend stuff
+
+
+
+  const fetchresumelink = async () => {
+    try {
+      const response = await axios.get('/api/user/resume');
+      if (response.status === 200) {
+        // setresume(response.data.resume)
+        console.log(response.data.resume)
+        resumedata(response.data.resume)
+      } else if (response.status === 404) {
+        setError('User not found!!')
+      } else {
+        setError('Something went wrong...')
+      }
+    } catch (error) {
+      console.log('Failed to fetch the resume link' + error);
+    }
+  }
+
+  const resumedata = async (resume: string) => {
+    try {
+      const response = await axios.post("https://076c-103-171-118-186.ngrok-free.app/extractresume", { "resume_link": resume });
+      if (response.status === 200) {
+        console.log('Resume data ' + response);
+        // setresumetext(response.data.text);
+        summarizedata(response.data.text)
+      } else {
+        setError('Something went wrong!!')
+      }
+    } catch (error) {
+      console.log('Failed to do the acction ' + error);
+      setError('Failed to do the acction ' + error)
+    }
+  }
+
+  const summarizedata = async (resumetext: string) => {
+    try {
+      const response = await axios.post("https://076c-103-171-118-186.ngrok-free.app/summarizer", { "text_data": resumetext });
+      if (response.status === 200) {
+        console.log('Resume data ' + response.data.summary);
+        // setsummarizeresumetext(response.data.summary);
+        cleandata(response.data.summary)
+      } else {
+        setError('Something went wrong!!')
+      }
+    } catch (error) {
+      console.log('Failed to do the acction ' + error);
+      setError('Failed to do the acction ' + error)
+    }
+  }
+
+  const cleandata = async (summarizeresumetext: string) => {
+    try {
+      const response = await axios.post("https://076c-103-171-118-186.ngrok-free.app/clean", { "text_data": summarizeresumetext });
+      if (response.status === 200) {
+        setcleantext(response.data.cleaned_text);
+        const responsenew = await axios.post('/api/user/addcleantext', { "cleantext": cleantext });
+        if (responsenew.status === 200) {
+          console.log('Successfully added the data!!');
+          setMessage('Profile created successfully!');
+          router.push('/user/pages/homepage');
+          console.log(responsenew.data.data);
+        } else {
+          console.log('Something went wrong...')
+        }
+      } else {
+        setError('Something went wrong!!')
+      }
+    } catch (error) {
+      console.log('Something went wrong...' + error);
+    }
+  }
+
+
   // const valuedemonstration = () => {
   //   console.log("Data:", data);
   // }
@@ -144,14 +224,14 @@ const ProfilePage = () => {
           placeholder='Enter your City'
           className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
         />
-          <input
-            type="text"
-            value={data.ColleageName}
-            onChange={(e) => setData({ ...data, ColleageName: e.target.value })}
-            placeholder='Enter your college name'
-            className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
-          />
-                  <input
+        <input
+          type="text"
+          value={data.ColleageName}
+          onChange={(e) => setData({ ...data, ColleageName: e.target.value })}
+          placeholder='Enter your college name'
+          className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
+        />
+        <input
           type="text"
           value={data.CourseName}
           onChange={(e) => setData({ ...data, CourseName: e.target.value })}
@@ -163,6 +243,13 @@ const ProfilePage = () => {
           value={data.Spealization}
           onChange={(e) => setData({ ...data, Spealization: e.target.value })}
           placeholder='Enter your Spealization'
+          className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
+        />
+        <input
+          type="text"
+          value={data.phoneno}
+          onChange={(e) => setData({ ...data, phoneno: e.target.value })}
+          placeholder='Enter your phone number'
           className='w-full p-3 mb-4 bg-zinc-700/50 text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-zinc-400 transition-all duration-200'
         />
         <select
@@ -241,6 +328,8 @@ const ProfilePage = () => {
       </div>
     </div>
   )
+
+
 }
 
 export default ProfilePage
