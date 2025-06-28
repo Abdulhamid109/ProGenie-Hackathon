@@ -16,8 +16,6 @@ export async function GET(request:NextRequest){
             );
         }
         const userprofile = await ProfileData.findOne({userID:userid});
-        
-
         return NextResponse.json(
             {success:true,resume:userprofile.resumelink},
             {status:200}

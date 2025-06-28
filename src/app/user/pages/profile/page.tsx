@@ -66,8 +66,8 @@ const ProfilePage = () => {
   }
   const addProfileData = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setDisable(true);
+    
+    
     setError(null);
     setMessage(null);
 
@@ -102,10 +102,7 @@ const ProfilePage = () => {
     } catch (error) {
       console.error('Failed to create profile:', error);
       setError('Something went wrong! Please try again.');
-    } finally {
-      setLoading(false);
-      setDisable(false);
-    }
+    } 
   };
 
   // backend stuff
@@ -162,24 +159,39 @@ const ProfilePage = () => {
   }
 
   const cleandata = async (summarizeresumetext: string) => {
+    
     try {
       const response = await axios.post("https://076c-103-171-118-186.ngrok-free.app/clean", { "text_data": summarizeresumetext });
       if (response.status === 200) {
         setcleantext(response.data.cleaned_text);
-        const responsenew = await axios.post('/api/user/addcleantext', { "cleantext": cleantext });
-        if (responsenew.status === 200) {
-          console.log('Successfully added the data!!');
-          setMessage('Profile created successfully!');
-          router.push('/user/pages/homepage');
-          console.log(responsenew.data.data);
-        } else {
-          console.log('Something went wrong...')
-        }
+        await addcleantext();
+        router.push('/user/pages/homepage')
       } else {
         setError('Something went wrong!!')
       }
     } catch (error) {
       console.log('Something went wrong...' + error);
+    }
+  }
+
+  const addcleantext=async()=>{
+    setDisable(true);
+    setLoading(true);
+    try {
+      const response = await axios.post('/api/user/addcleantext',{
+        "resumecleantext":cleantext
+      });
+      if(response.status===200){
+        console.log('Successfully updated the database');
+        setMessage('Successfully Profile Created...')
+        console.log('reponse=> '+response.data.data)
+      }
+    } catch (error) {
+      console.log('error in adding data to db',error);
+
+    }finally {
+      setLoading(false);
+      setDisable(false);
     }
   }
 
@@ -321,7 +333,7 @@ const ProfilePage = () => {
           disabled={disable}
         >
 
-          {loading ? "Saving..." : "Save"}
+          {loading ? "Processing... takes 12-15 s" : "Save"}
         </button>
         {message && <p className='text-green-400 mt-4 font-medium animate-fade-in'>{message}</p>}
         {error && <p className='text-red-400 mt-4 font-medium animate-fade-in'>{error}</p>}
