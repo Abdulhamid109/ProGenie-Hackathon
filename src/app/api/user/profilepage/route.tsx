@@ -56,7 +56,8 @@ export async function POST(request: NextRequest) {
         console.log('userID: '+userID)
 
         // delete the previous all records
-        await ProfileData.deleteMany({phoneno});
+        const deleteResult = await ProfileData.deleteMany({ userID });
+        console.log('Deleted records:', deleteResult.deletedCount);
         
         // for Email Verification will do it later
         const newProfileData = new ProfileData({
