@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import JobModel from "@/models/jobModal";
 import { connect } from "@/DBconfig/dbconfig";
 
+connect()
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await connect();
-    const { id } = params;
+    
+    const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
