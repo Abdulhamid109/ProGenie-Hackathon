@@ -19,9 +19,7 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    OTP:{
-        type:String
-    }
+    
 });
 
 const user = mongoose.models.User || mongoose.model("User", userSchema);

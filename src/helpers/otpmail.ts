@@ -1,18 +1,15 @@
 import nodemailer from 'nodemailer';
-import { OTPGenerator } from '@/helpers/OTPgenerator';
-import { getUserTokenData } from './getUserTokenData';
-import { NextRequest} from 'next/server';
-import user from '@/models/userModal';
+
 
 interface SendEmailParams {
   email: string; 
 }
 
-export const sendEmail = async ({email}: SendEmailParams,request:NextRequest) => {
+export const sendEmail = async ({email}: SendEmailParams,OTP:string) => {
   try {
     // Convert userid to string before hashing
     // const verificationToken = await bcrypt.hash(userid.toString(), 10);
-    const OTP = OTPGenerator();
+    
     // Update the user depending on the email type
     // if (emailType === "RESET") {
     //   await User.findByIdAndUpdate(userid, {
@@ -20,9 +17,9 @@ export const sendEmail = async ({email}: SendEmailParams,request:NextRequest) =>
     //     forgotPasswordTokenExpiry: Date.now() + 3600000, // 1 hour expiration
     //   });
     // }
-    const userid = await getUserTokenData(request);
-    const User = await user.findOneAndUpdate({_id:userid},{OTP:OTP});
-    console.log("User with updated OTP"+User.OTP)
+
+    // console.log("User with updated OTP"+User.OTP)
+    
     
       // Configure nodemailer
     const transport = nodemailer.createTransport({
@@ -41,10 +38,11 @@ export const sendEmail = async ({email}: SendEmailParams,request:NextRequest) =>
       subject: "Confirm Your Account",
       html: `
         <p>Hello Dear,</p><br>
-        <div classname='flex justify-center items-center w-full font-semibold'><span classname="font-bold text-blue-600">ProGenie</span> - An AI based job MatchMaker</div>
+        <div style='color:blue; font-size:30px;'><span classname="font-bold text-blue-600">ProGenie</span> - An AI based job MatchMaker</div>
         <p>OTP verification for Account Creation</p>
         <br>
-        <p classname='bg-red-400 font-semibold'>OTP:${OTP}</p>
+        <p style='color:green; font-weight:bold'>OTP:${OTP}</p>
+        <p style='color-red; font-size:15px;'>Note:OTP expires after 10 mins</>
       `,
     };
 

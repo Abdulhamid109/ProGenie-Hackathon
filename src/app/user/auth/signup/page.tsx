@@ -80,9 +80,9 @@ const Signup = () => {
             console.log('Response status:', response.status);
 
             if (response.status === 200) {
-                setMessage("Account created successfully! Redirecting to login Page");
+                setMessage("'Redirecting to OTP verification");
                 setTimeout(() => {
-                    router.push('/user/auth/login');
+                    router.push(`/user/auth/OTP?email=${data.email}`);
                 }, 1500);
             } else if (response.status === 400) {
                 setMessage("This email already exists")
