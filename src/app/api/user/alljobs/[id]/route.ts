@@ -10,9 +10,6 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    
-  
-
     // Await params to resolve the id
     const { id } = await params;
     console.log("Received job ID:", id);

@@ -1,5 +1,6 @@
 'use client';
 import axios from 'axios';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -104,12 +105,16 @@ const Signup = () => {
 
     return (
         <div className='min-h-screen bg-gradient-to-b from-zinc-900 to-blue-900 flex flex-col items-center justify-center p-4'>
-            <Link href={'/'} className="font-semibold top-0 left-0 p-5">ProGenie</Link>
+            
+            <Link href={'/'} className="hover:scale-105 hover:shadow-2xl text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">ProGenie</Link>
 
-            <div className='text-center text-3xl md:text-4xl font-bold text-zinc-200 mb-8 tracking-tight animate-fade-in'>
+            <div className='text-center text-xl md:text-xl font-bold text-zinc-200 mb-8 tracking-tight animate-fade-in'>
                 Welcome!! Good to have You...
             </div>
             <div className='flex flex-col items-center justify-center bg-gradient-to-l from-yellow-950/80 to-zinc-800/80 w-full max-w-md rounded-2xl p-8 shadow-2xl shadow-black/50 backdrop-blur-sm transition-all duration-300 hover:shadow-black/70'>
+            <div>
+                <Image height={80} width={100} src={'/signup.webp'} alt='No image found' />
+            </div>
                 <h2 className='text-2xl font-semibold text-zinc-100 mb-6'>Sign Up</h2>
                 <form onSubmit={addSignupData}>
                     <div className='mb-4'>

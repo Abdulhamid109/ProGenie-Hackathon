@@ -1,77 +1,103 @@
 import mongoose from "mongoose";
 
 const profileSchema = new mongoose.Schema({
-    userID:{
-        type:String,
+    userID: {
+        type: String,
         required: true,
     },
-    gender:{
-        enum:["Male","Female","Other"],
-        type:String,
+    gender: {
+        type: String,
+        enum: ["Male", "Female", "Other"],
     },
-    location:{
-        type:String,
+    location: {
+        type: String,
     },
-    DOB:{
-        type:Date,
+    DOB: {
+        type: Date,
     },
-    EmailVerified:{type:Boolean,default:false},
-    CourseName:{type:String},
-    Spealization:{type:String},
-    ColleageName:{type:String},
-    GradingSystem:{
-        enum:["GPA","CGPA","Percentage"],
-        type:String,
-        description:"GPA(0-4),CGPA(0-10),Percentage(0-100)",
+    EmailVerified: { 
+        type: Boolean, 
+        default: false 
     },
-    phoneno:{
-        type:String,
-        unique:true
+    CourseName: { 
+        type: String 
     },
-    Score:{
-        type:String,
-        description:"GPA(0-4),CGPA(0-10),Percentage(0-100)",
+    Spealization: { 
+        type: String 
     },
-    StartYear:{type:String},
-    EndYear:{type:String},
-    Type:{
-        enum:["Regular","Part-Time"],
-        tyep:String,
+    ColleageName: { 
+        type: String 
     },
-    resumelink:{
-        type:String,
+    GradingSystem: {
+        type: String,
+        enum: ["GPA", "CGPA", "Percentage"],
+        // Note: description is not a valid Mongoose schema option
+        // Use comments or documentation instead
+    },
+    phoneno: {
+        type: String,
+        unique: true
+    },
+    Score: {
+        type: String,
+        // Note: description is not a valid Mongoose schema option
+        // Use comments or documentation instead
+        // Valid ranges: GPA(0-4), CGPA(0-10), Percentage(0-100)
+    },
+    StartYear: { 
+        type: String 
+    },
+    EndYear: { 
+        type: String 
+    },
+    Type: {
+        type: String, // Fixed: was "tyep" instead of "type"
+        enum: ["Regular", "Part-Time"],
+    },
+    resumelink: {
+        type: String,
         required: true,
     },
-    Notification:{
-        type:Boolean,
-        default:false
+    Notification: {
+        type: Boolean,
+        default: false
     },
-    resumecleantext:{
-        type:String,
+    resumecleantext: {
+        type: String,
     },
-    AppliedJobs:[
+    AppliedJobs: [
         {
             appliedjobID: {
                 type: String,
-                
             },
             similarityScore: {
-                type: String,
+                type: Number,
+            },
+            appliedbool: {
+                type: Boolean,
+                default: false
             }
         }
     ],
-    ShortlistedJobs:[
+    ShortlistedJobs: [
         {
             shortlistedjobID: {
                 type: String,
-                
             },
             similarityScore: {
-                type: String,
+                type: Number, // Changed from String to Number for consistency
             }
         }
     ],
+}, {
+    timestamps: true // Optional: adds createdAt and updatedAt fields
 });
 
-const ProfileData = mongoose.models.profiledata || mongoose.model("profiledata",profileSchema);
+// Add indexes for better performance
+profileSchema.index({ userID: 1 });
+profileSchema.index({ phoneno: 1 });
+profileSchema.index({ "AppliedJobs.appliedjobID": 1 });
+
+const ProfileData = mongoose.models.profiledata || mongoose.model("profiledata", profileSchema);
+
 export default ProfileData;
