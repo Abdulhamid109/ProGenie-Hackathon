@@ -38,7 +38,7 @@ export async function POST(request:NextRequest) {
         const savedJob = await jobdata.save();
         return NextResponse.json(
             {success:true, message: 'Job added successfully', job: savedJob},
-            {status: 201}
+            {status: 200}
         )
         
     } catch (error) {
