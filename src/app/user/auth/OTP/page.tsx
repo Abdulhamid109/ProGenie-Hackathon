@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function VerifyOTPPage() {
@@ -65,6 +65,7 @@ export default function VerifyOTPPage() {
   };
 
   return (
+    <Suspense fallback="<div className='font-semibold animate-pulse flex justify-center items-center w-full h-full'>loading...kindly wait</div>">
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         {/* Logo/Brand Section */}
@@ -179,5 +180,6 @@ export default function VerifyOTPPage() {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 }
