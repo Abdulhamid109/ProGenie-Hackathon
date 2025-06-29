@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
         const userid = await getUserTokenData(request);
         const reqbody = await request.json();
         const { resumecleantext } = reqbody;
-
+        
         if (!userid) {
             return NextResponse.json(
                 { error: "Userid not found" },

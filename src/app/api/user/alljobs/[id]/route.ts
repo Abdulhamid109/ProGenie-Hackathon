@@ -46,7 +46,7 @@ export async function GET(
 
     console.log("Job found:", job);
     return NextResponse.json(
-      { success: true, job },
+      { success: true, dataa:job },
       { status: 200 }
     );
   } catch (error) {

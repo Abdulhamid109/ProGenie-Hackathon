@@ -18,15 +18,15 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        const jobdata = await ProfileData.findOne({ userID: userid });
-        const jobid = await jobdata.AppliedJobs.appliedjobID;
-        console.log(jobid);
-        if(jobid==id){
-            return NextResponse.json({
-                error:true,
-                message:"Already applied for this job"
-            },{status:404})
-        }
+        // const jobdata = await ProfileData.findOne({ userID: userid });
+        // const jobid = await jobdata.AppliedJobs.appliedjobID;
+        // console.log(jobid);
+        // if(jobid==id){
+        //     return NextResponse.json({
+        //         error:true,
+        //         message:"Already applied for this job"
+        //     },{status:404})
+        // }
 
         
         // FIX 1: Add upsert option and return the updated document

@@ -45,11 +45,11 @@ const JobdescriptionPage = () => {
       setLoadingStep('Fetching job details...');
       const response = await axios.get(`/api/user/alljobs/${id}`);
       if (response.status === 200) {
-        setData(response.data.job);
-        setjobcleantext(response.data.job.jobcleantext);
-        console.log("clean data: " + response.data.job.jobcleantext);
+        setData(response.data.dataa);
+        setjobcleantext(response.data.dataa.jobcleantext);
+        console.log("clean data: " + response.data.dataa.jobcleantext);
         // Check if user has already applied for this job
-        setapplied(response.data.job.applied || false);
+        setapplied(false);
       } else {
         setError("Failed to load job details");
       }
@@ -114,7 +114,7 @@ const JobdescriptionPage = () => {
       if (response.status === 200) {
         console.log('Successfully updated the status');
         console.log('applied (boolean) =>' + response.data.applicationStatus);
-        setapplied(response.data.data.AppliedJobs.appliedbool || true);
+        setapplied(true);
       }else if(response.status===404){
         setError(response.data.message);
       }

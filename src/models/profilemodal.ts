@@ -93,10 +93,6 @@ const profileSchema = new mongoose.Schema({
     timestamps: true // Optional: adds createdAt and updatedAt fields
 });
 
-// Add indexes for better performance
-profileSchema.index({ userID: 1 });
-profileSchema.index({ phoneno: 1 });
-profileSchema.index({ "AppliedJobs.appliedjobID": 1 });
 
 const ProfileData = mongoose.models.profiledata || mongoose.model("profiledata", profileSchema);
 

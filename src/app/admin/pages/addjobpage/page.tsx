@@ -121,7 +121,7 @@ const AddJobPage = () => {
       }
 
       const summary = summaryResponse.data.summary;
-      console.log('Resume summarized successfully');
+      console.log('text summarized successfully '+summary);
 
       // Step 5: Clean the summarized text
       setLoadingStep('Processing and cleaning Job data...');
@@ -141,14 +141,16 @@ const AddJobPage = () => {
         throw new Error(`Failed to clean text: ${cleanResponse.status}`);
       }
 
+      console.log('Cleaned Response :'+cleanResponse)
       const cleanedText = cleanResponse.data.cleaned_text;
-      console.log('Text cleaned successfully');
+      console.log('Text cleaned successfully'+cleanedText);
 
       // Step 6: Save cleaned text to database
       setLoadingStep('Saving processed data...');
-      const saveResponse = await axios.post('/api/admin/addcleantext', {
+      const saveResponse = await axios.put('/api/admin/addcleantext', {
         "jobcleantext": cleanedText
       });
+      console.log('data retrived '+saveResponse.data.data.jobcleantext)
 
       if (saveResponse.status !== 200) {
         throw new Error('Failed to save processed resume data');
@@ -183,6 +185,8 @@ const AddJobPage = () => {
       setLoadingStep('');
     }
   };
+
+  
 
   return (
     <div className='min-h-screen bg-gradient-to-b from-zinc-900 to-blue-900 flex flex-col items-center justify-center p-4'>

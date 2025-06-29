@@ -4,7 +4,7 @@ import { connect } from "@/DBconfig/dbconfig";
 import { getDatafromToken } from "@/helpers/getDataFromToken";
 import jobmodal from "@/models/jobModal";
 import { NextRequest, NextResponse } from "next/server";
-
+import jwt from "jsonwebtoken";
 
 connect();
 
@@ -36,10 +36,18 @@ export async function POST(request:NextRequest) {
         });
 
         const savedJob = await jobdata.save();
-        return NextResponse.json(
+        // set the cookies
+        const payload ={
+            id:savedJob._id
+        }
+        const token = jwt.sign(payload,process.env.JOB_SECRET_KEY!,{expiresIn:'1d'});
+        const response =  NextResponse.json(
             {success:true, message: 'Job added successfully', job: savedJob},
             {status: 200}
-        )
+        );
+
+        response.cookies.set('jobtoken',token,{httpOnly:true});
+        return response;
         
     } catch (error) {
         console.log('Something went wrong!! '+error);
