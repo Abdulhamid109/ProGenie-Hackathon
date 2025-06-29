@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function VerifyOTPPage() {
@@ -65,10 +65,8 @@ export default function VerifyOTPPage() {
   };
 
   return (
-    <Suspense fallback="<div className='font-semibold animate-pulse flex justify-center items-center w-full h-full'>loading...kindly wait</div>">
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
-        {/* Logo/Brand Section */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full mb-4 shadow-lg shadow-purple-500/25">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,8 +78,6 @@ export default function VerifyOTPPage() {
           </h1>
           <p className="text-gray-400 mt-2">Verify your account</p>
         </div>
-
-        {/* Main Card */}
         <div className="bg-gray-900/90 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-700/50 p-8 shadow-purple-500/10">
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-900/50 rounded-full mb-4 border border-purple-700/50">
@@ -171,8 +167,6 @@ export default function VerifyOTPPage() {
             </button>
           </div>
         </div>
-
-        {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-xs text-gray-500">
             By verifying, you agree to our Terms of Service and Privacy Policy
@@ -180,6 +174,5 @@ export default function VerifyOTPPage() {
         </div>
       </div>
     </div>
-    </Suspense>
   );
 }
