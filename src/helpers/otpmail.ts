@@ -1,15 +1,17 @@
-import nodemailer from 'nodemailer';
+import Nodemailer from 'nodemailer';
+import { MailtrapTransport } from "mailtrap";
 
 
 interface SendEmailParams {
-  email: string; 
+  email: string;
 }
 
-export const sendEmail = async ({email}: SendEmailParams,OTP:string) => {
+const TOKEN = "0b6e8b5c8b758e496aff498e783d3fa7";
+export const sendEmail = async ({ email }: SendEmailParams, OTP: string) => {
   try {
     // Convert userid to string before hashing
     // const verificationToken = await bcrypt.hash(userid.toString(), 10);
-    
+
     // Update the user depending on the email type
     // if (emailType === "RESET") {
     //   await User.findByIdAndUpdate(userid, {
@@ -19,22 +21,32 @@ export const sendEmail = async ({email}: SendEmailParams,OTP:string) => {
     // }
 
     // console.log("User with updated OTP"+User.OTP)
-    
-    
-      // Configure nodemailer
-    const transport = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "870a46b658c123",
-        pass: "8c0eb8d04caba1",
-      },
-    });
 
+    const transport = Nodemailer.createTransport(
+      MailtrapTransport({
+        token: TOKEN,
+      })
+    );
+    // Configure nodemailer
+    // const transport = nodemailer.createTransport({
+    //   host: "live.smtp.mailtrap.io",
+    //   port: 587,
+    //   auth: {
+    //     user: "870a46b658c123",
+    //     pass: "8c0eb8d04caba1",
+    //   },
+    // });
+    const sender = {
+      address: "hello@demomailtrap.com",
+      name: "Account Confirmation",
+    };
+    const recipients = [
+      "abdulhamidpatel109@gmail.com",
+    ];
     // Define email options
     const mailOptions = {
-      from: 'abdulhamidpatel109@gmail.com',
-      to: email,
+      from: sender,
+      to: recipients,
       subject: "Confirm Your Account",
       html: `
         <p>Hello Dear,</p><br>
@@ -49,7 +61,7 @@ export const sendEmail = async ({email}: SendEmailParams,OTP:string) => {
     // Send email
     const mailResponse = await transport.sendMail(mailOptions);
     return mailResponse;
-    } catch (error) {
+  } catch (error) {
     console.error("Error sending email:", error);
     throw new Error("Email sending failed.");
   }
